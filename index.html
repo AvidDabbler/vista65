@@ -1,0 +1,47 @@
+<head>
+  <meta charset="utf-8" />
+  <title>Filter features within map view</title>
+  <meta
+    name="viewport"
+    content="initial-scale=1,maximum-scale=1,user-scalable=no"
+  />
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.js"></script>
+  <link
+    href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      margin: 0;
+      width: 100%;
+      display: flex;
+      padding: 0;
+    }
+    #container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+    }
+    #map {
+      width: 80%;
+      height: 100vh;
+    }
+    #filter {
+      width: 20%;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+
+    <div id="filter">
+      <button id="bars" onclick="filterLocations('Bar')">Bars</button>
+      <button id="restaurants" onclick="filterLocations('Restaurant')">Restaurants</button>
+      <button id="hotels" onclick="filterLocations('Hotel')">Hotels</button>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <script src="index.js" type="text/javascript"></script>
+</body>
