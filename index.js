@@ -299,6 +299,10 @@ const filterLocations = (type) => {
     type: "FeatureCollection",
     features: createFeatures(_locations),
   });
+  document.querySelectorAll(".map-button").forEach((button) => {
+    button.classList.remove("map-button-active");
+  })
+  document.getElementById(`${type.toLowerCase()}-map-button`).classList.add("map-button-active");
 };
 
 const createFeatures = (locations) => {

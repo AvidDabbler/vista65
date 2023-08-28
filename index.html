@@ -27,8 +27,34 @@
       height: 100vh;
     }
     #filter {
+      display: inline;
       width: 20%;
       height: 100vh;
+    }
+    .clean-button {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+    }
+    .map-button {
+      margin-top:10px;
+      margin-bottom:10px;
+      border-radius: 10px;
+      background-color: #aa7854;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 100%;
+      height: 50px;
+    }
+    .map-button-active {
+      background-color: #21202b;
+    }
+    .map-button:hover {
+      background-color: #21202b;
     }
   </style>
 </head>
@@ -36,9 +62,9 @@
   <div id="container">
 
     <div id="filter">
-      <button id="bars" onclick="filterLocations('Bar')">Bars</button>
-      <button id="restaurants" onclick="filterLocations('Restaurant')">Restaurants</button>
-      <button id="hotels" onclick="filterLocations('Hotel')">Hotels</button>
+      <button class="clean-button map-button map-button-active" id="bar-map-button" onclick="filterLocations('Bar')">Bars</button>
+      <button class="clean-button map-button" id="restaurant-map-button" onclick="filterLocations('Restaurant')">Restaurants</button>
+      <button class="clean-button map-button" id="hotel-map-button" onclick="filterLocations('Hotel')">Hotels</button>
     </div>
     <div id="map"></div>
   </div>
