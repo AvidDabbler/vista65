@@ -241,9 +241,7 @@ map.on("load", function () {
     type: "geojson",
     data: {
       type: "FeatureCollection",
-      features: locations.filter((location) => {
-        return location.category === "Bar";
-      }),
+      features: createFeatures(locations),
     },
   });
 
@@ -256,8 +254,9 @@ map.on("load", function () {
       "circle-radius": {
         base: 1.75,
         stops: [
-          [12, 2],
-          [22, 300],
+          [16, 10],
+          [18, 20],
+          [22, 5],
         ],
       },
       "circle-color": [
@@ -274,16 +273,19 @@ map.on("load", function () {
     },
   });
 
-  // map.addLayer({
-  //   id: "labels",
-  //   type: "symbol",
-  //   source: "locations",
-  //   layout: {
-  //     "text-field": ["get", "id"],
-  //     "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-  //     "text-size": 12,
-  //   },
-  // });
+  map.addLayer({
+    id: "labels",
+    type: "symbol",
+    source: "locations",
+    layout: {
+      "text-field": ["get", "label"],
+      "text-font": [ "Arial Unicode MS Bold"],
+      "text-size": 12
+    },
+    paint: {
+      "text-color": "#ffffff"
+    }
+  });
 });
 
 const filterLocations = (type) => {
@@ -297,16 +299,17 @@ const filterLocations = (type) => {
 };
 
 const createFeatures = (locations) => {
-  return locations.map(function (feature, id) {
+  return locations.map((location, id) => {
     return {
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [feature.lon, feature.lat],
+        coordinates: [location.lon, location.lat],
       },
       properties: {
-        id,
-        ...feature,
+        label: `${id + 1}`,
+        name: location.name,
+        category: location.category,
       },
     };
   });
