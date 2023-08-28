@@ -238,7 +238,7 @@ function normalize(string) {
 
 map.on("load", function () {
   const _locations = locations.filter((location) => {
-    return location.category === 'Bar';
+    return location.category === "Bar";
   });
   map.addSource("locations", {
     type: "geojson",
@@ -282,12 +282,12 @@ map.on("load", function () {
     source: "locations",
     layout: {
       "text-field": ["get", "label"],
-      "text-font": [ "Arial Unicode MS Bold"],
-      "text-size": 12
+      "text-font": ["Arial Unicode MS Bold"],
+      "text-size": 12,
     },
     paint: {
-      "text-color": "#ffffff"
-    }
+      "text-color": "#ffffff",
+    },
   });
 });
 
@@ -301,9 +301,40 @@ const filterLocations = (type) => {
   });
   document.querySelectorAll(".map-button").forEach((button) => {
     button.classList.remove("map-button-active");
-  })
-  document.getElementById(`${type.toLowerCase()}-map-button`).classList.add("map-button-active");
+  });
+  document
+    .getElementById(`${type.toLowerCase()}-map-button`)
+    .classList.add("map-button-active");
+
+  adjustMapBoundsToFeatures(map, "locations");
 };
+
+function adjustMapBoundsToFeatures(map, sourceId) {
+  // Get the source data (GeoJSON) from the map's data source
+  const sourceData = map.getSource(sourceId)._data;
+
+  if (!sourceData || !sourceData.features.length) {
+    console.log("No features to adjust bounds to.");
+    return;
+  }
+
+  // Initialize the bounds with the coordinates of the first feature
+  let bounds = new mapboxgl.LngLatBounds();
+
+  // Loop through all features to expand the bounds
+  sourceData.features.forEach((feature) => {
+    const coords = feature.geometry.coordinates;
+
+    // Extend the bounds with the coordinates of the current feature
+    bounds.extend(coords);
+  });
+
+  // Set the map's bounds to fit all features
+  map.fitBounds(bounds, {
+    duration: 1000,
+    padding: 50, // Optional padding around the bounds
+  });
+}
 
 const createFeatures = (locations) => {
   return locations.map((location, id) => {
