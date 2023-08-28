@@ -237,11 +237,14 @@ function normalize(string) {
 }
 
 map.on("load", function () {
+  const _locations = locations.filter((location) => {
+    return location.category === 'Bar';
+  });
   map.addSource("locations", {
     type: "geojson",
     data: {
       type: "FeatureCollection",
-      features: createFeatures(locations),
+      features: createFeatures(_locations),
     },
   });
 
