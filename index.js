@@ -247,6 +247,12 @@ map.on("load", function () {
       features: createFeatures(_locations),
     },
   });
+  document.getElementById("map-items").innerHTML = _locations
+    .map(
+      (el, id) => `<button class='clean-button map-item-button' onclick="">${id+1}. ${el.name}</button>`
+    )
+    .join(" ")
+    .toString();
 
   map.addLayer({
     id: "locations",
@@ -305,6 +311,10 @@ const filterLocations = (type) => {
   document
     .getElementById(`${type.toLowerCase()}-map-button`)
     .classList.add("map-button-active");
+
+  document.getElementById("map-items").innerHTML = _locations
+    .map((el) => `<button>${el.name}</button>`)
+    .toString();
 
   adjustMapBoundsToFeatures(map, "locations");
 };
