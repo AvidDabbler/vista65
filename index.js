@@ -1,3 +1,4 @@
+// const mapboxgl = require("mapbox");
 mapboxgl.accessToken =
   "pk.eyJ1Ijoid2FsdGVyaiIsImEiOiJjbGl1OW1temkycWxsM2VsZ3JsNjZnbTVqIn0.HsVEIAXfOvKgua17WO7Hlg";
 var map = new mapboxgl.Map({
@@ -228,13 +229,22 @@ var locations = [
 ];
 
 // Create a popup, but don't add it to the map yet.
-var popup = new mapboxgl.Popup({
-  closeButton: false,
-});
+// var popup = new mapboxgl.Popup({
+//   closeButton: false,
+// });
 
-function normalize(string) {
-  return string.trim().toLowerCase();
-}
+// function normalize(string) {
+//   return string.trim().toLowerCase();
+// }
+const renderMapItems = (_locations) => document.getElementById("map-items").innerHTML = _locations
+.map(
+  (el, id) =>
+    `<button class='clean-button map-item-button' onclick="highlightItem('${
+      el.name
+    }')">${id + 1}. ${el.name}</button>`
+)
+.join(" ")
+.toString();
 
 map.on("load", function () {
   const _locations = locations.filter((location) => {
@@ -247,12 +257,16 @@ map.on("load", function () {
       features: createFeatures(_locations),
     },
   });
-  document.getElementById("map-items").innerHTML = _locations
-    .map(
-      (el, id) => `<button class='clean-button map-item-button' onclick="">${id+1}. ${el.name}</button>`
-    )
-    .join(" ")
-    .toString();
+  // document.getElementById("map-items").innerHTML = _locations
+  //   .map(
+  //     (el, id) =>
+  //       `<button class='clean-button map-item-button' onclick="highlightItem('${
+  //         el.name
+  //       }')">${id + 1}. ${el.name}</button>`
+  //   )
+  //   .join(" ")
+  //   .toString();
+  renderMapItems(_locations)
 
   map.addLayer({
     id: "locations",
@@ -312,9 +326,10 @@ const filterLocations = (type) => {
     .getElementById(`${type.toLowerCase()}-map-button`)
     .classList.add("map-button-active");
 
-  document.getElementById("map-items").innerHTML = _locations
-    .map((el) => `<button>${el.name}</button>`)
-    .toString();
+  // document.getElementById("map-items").innerHTML = _locations
+  //   .map((el) => `<button>${el.name}</button>`)
+  //   .toString();
+  renderMapItems(_locations)
 
   adjustMapBoundsToFeatures(map, "locations");
 };
@@ -361,4 +376,45 @@ const createFeatures = (locations) => {
       },
     };
   });
+};
+
+const highlightItem = (id) => {
+  const source = map.getSource("locations");
+  console.log({ source });
+  if (!source) return;
+  else {
+    map.addLayer(
+      {
+        id: "location-highlighted",
+        type: "circle",
+        source: "locations",
+        paint: {
+          // Make circles larger as the user zooms from z12 to z22.
+          "circle-radius": {
+            base: 1.75,
+            stops: [
+              [16, 15],
+              [18, 25],
+              [22, 10],
+            ],
+          },
+          "circle-color": [
+            "match",
+            ["get", "category"],
+            "Bar",
+            "#fbb03b",
+            "Restaurant",
+            "#223b53",
+            "Hotel",
+            "#e55e5e",
+            /* other */ "#fff",
+          ],
+        },
+        // Display none by adding a
+        // filter with an empty string.
+        filter: ["in", "name", id],
+      }
+      // Place polygons under labels, roads and buildings.
+    );
+  }
 };

@@ -1,32 +1,26 @@
-const OFF = "off";
-const ERROR = "error";
-
-/**
- * @type {import('@types/eslint').Linter.BaseConfig}
- */
 module.exports = {
-  root: true,
-  parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "tailwindcss"],
-  extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
-    "prettier",
-    "plugin:tailwindcss/recommended",
-  ],
-  rules: {
-    "@typescript-eslint/no-var-requires": OFF,
-    // "react/function-component-definition": ERROR,
-    "@typescript-eslint/no-unused-vars": [
-      ERROR,
-      { args: "none", argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
-    ],
-    "react/prop-types": OFF,
-  },
-  settings: {
-    react: {
-      version: "detect",
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true
     },
-  },
-};
+    "extends": "eslint:recommended",
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [
+                ".eslintrc.{js,cjs}"
+            ],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+    }
+}
