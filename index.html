@@ -22,14 +22,18 @@
       height: 100vh;
       display: flex;
     }
+    #map-sidebar{
+      width: 30%;
+      height: 100%;
+      display: inline;
+    }
     #map {
       width: 70%;
       height: 100vh;
     }
-    #filter {
-      display: inline;
-      width: 10%;
-      height: 100vh;
+    .filter-container {
+      display: flex;
+      gap:20px;
     }
     #map-items-container  {
       display: inline;
@@ -40,6 +44,7 @@
     }
     #map-items{
       display: flex;
+      gap: 10px;
       flex-direction: column;
       text-align: left;
       height: 100%;
@@ -53,15 +58,20 @@
       cursor: pointer;
       outline: inherit;
     }
+    .map-button-container{
+      width: 100%;
+      display: flex;
+      gap: 10px;
+    }
     .map-item-button{
       padding-left: 0;
       margin-left: 0;
       margin-right: auto;
+      color: black;
     }
     .map-button {
       margin-top:10px;
       margin-bottom:10px;
-      border-radius: 10px;
       background-color: #aa7854;
       color: white;
       font-family: Arial, Helvetica, sans-serif;
@@ -74,19 +84,36 @@
     .map-button:hover {
       background-color: #21202b;
     }
+    .circle-list-item{
+      border-radius: 100px;
+      height: 25px;
+      width: 25px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #aa7854;
+    }
   </style>
 </head>
 <body>
   <div id="container">
-
-    <div id="filter">
-      <button class="clean-button map-button map-button-active" id="bar-map-button" onclick="filterLocations('Bar')">Bars</button>
-      <button class="clean-button map-button" id="restaurant-map-button" onclick="filterLocations('Restaurant')">Restaurants</button>
-      <button class="clean-button map-button" id="hotel-map-button" onclick="filterLocations('Hotel')">Hotels</button>
-    </div>
-    <div id="map-items-container">
-      <h2>Items</h2>
-      <div id="map-items"></div>
+    <div id="map-sidebar">
+      <div class="filter-container">
+        <button class="clean-button map-button map-button-active" id="bar-map-button" onclick="filterLocations('Bar')">Bars</button>
+        <button class="clean-button map-button" id="restaurant-map-button" onclick="filterLocations('Restaurant')">Restaurants</button>
+        <!-- <button class="clean-button map-button" id="hotel-map-button" onclick="filterLocations('Hotel')">Hotels</button> -->
+      </div>
+      <div class="filter-container">
+        <!-- <button class="clean-button map-button map-button-active" id="bar-map-button" onclick="filterLocations('Bar')">Bars</button>
+        <button class="clean-button map-button" id="restaurant-map-button" onclick="filterLocations('Restaurant')">Restaurants</button> -->
+        <button class="clean-button map-button" id="hotel-map-button" onclick="filterLocations('Hotel')">Hotels</button>
+        <button class="clean-button map-button" id="hotel-map-button" onclick="filterLocations('Hotel')">Hotels</button>
+      </div>
+      <div id="map-items-container">
+        <h2>Items</h2>
+        <div id="map-items"></div>
+      </div>
     </div>
     <div id="map"></div>
   </div>

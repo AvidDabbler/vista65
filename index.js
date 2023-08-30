@@ -236,78 +236,72 @@ var locations = [
 // function normalize(string) {
 //   return string.trim().toLowerCase();
 // }
-const renderMapItems = (_locations) => document.getElementById("map-items").innerHTML = _locations
-.map(
-  (el, id) =>
-    `<button class='clean-button map-item-button' onclick="highlightItem('${
-      el.name
-    }')">${id + 1}. ${el.name}</button>`
-)
-.join(" ")
-.toString();
+const renderMapItems = (_locations) =>
+  (document.getElementById("map-items").innerHTML = _locations
+    .map(
+      (el, id) =>
+        `<div class="map-button-container"><div class="circle-list-item">${
+          id + 1
+        }</div> <button class='clean-button map-item-button' onclick="highlightItem('${
+          el.name
+        }')">${el.name}</button></div>`
+    )
+    .join(" ")
+    .toString());
 
 map.on("load", function () {
-  const _locations = locations.filter((location) => {
-    return location.category === "Bar";
-  });
-  map.addSource("locations", {
-    type: "geojson",
-    data: {
-      type: "FeatureCollection",
-      features: createFeatures(_locations),
-    },
-  });
-  // document.getElementById("map-items").innerHTML = _locations
-  //   .map(
-  //     (el, id) =>
-  //       `<button class='clean-button map-item-button' onclick="highlightItem('${
-  //         el.name
-  //       }')">${id + 1}. ${el.name}</button>`
-  //   )
-  //   .join(" ")
-  //   .toString();
-  renderMapItems(_locations)
+  map.loadImage("pin.png", (error, image) => {
+    if (error) {
+      console.log(error);
+      throw error;
+    }
+    map.addImage("pin", image);
 
-  map.addLayer({
-    id: "locations",
-    source: "locations",
-    type: "circle",
-    paint: {
-      // Make circles larger as the user zooms from z12 to z22.
-      "circle-radius": {
-        base: 1.75,
-        stops: [
-          [16, 10],
-          [18, 20],
-          [22, 5],
-        ],
+    const _locations = locations.filter((location) => {
+      return location.category === "Bar";
+    });
+
+    map.addSource("locations", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: createFeatures(_locations),
       },
-      "circle-color": [
-        "match",
-        ["get", "category"],
-        "Bar",
-        "#fbb03b",
-        "Restaurant",
-        "#223b53",
-        "Hotel",
-        "#e55e5e",
-        /* other */ "#fff",
-      ],
-    },
-  });
+    });
+    map.addSource("locations-number", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: createFeatures(_locations),
+      },
+    });
 
-  map.addLayer({
-    id: "labels",
-    type: "symbol",
-    source: "locations",
-    layout: {
-      "text-field": ["get", "label"],
-      "text-font": ["Arial Unicode MS Bold"],
-      "text-size": 12,
-    },
-    paint: {
-      "text-color": "#ffffff",
-    },
+    renderMapItems(_locations);
+    
+    map.addLayer({
+      id: "locations",
+      source: "locations",
+      type: "symbol",
+      layout: {
+        "icon-image": "pin", // reference the image
+        "icon-size": 1,
+      },
+    });
+    map.addLayer({
+      id: "labels",
+      type: "symbol",
+      source: "locations-number",
+      layout: {
+        'text-offset': [0, -0.25],
+        "text-field": ["get", "label"],
+        "text-font": ["Arial Unicode MS Bold"],
+        "text-size": 12,
+      },
+      paint: {
+        "text-color": "#ffffff",
+      },
+    });
+
   });
 });
 
@@ -319,6 +313,10 @@ const filterLocations = (type) => {
     type: "FeatureCollection",
     features: createFeatures(_locations),
   });
+  map.getSource("locations-number").setData({
+    type: "FeatureCollection",
+    features: createFeatures(_locations),
+  });
   document.querySelectorAll(".map-button").forEach((button) => {
     button.classList.remove("map-button-active");
   });
@@ -326,10 +324,7 @@ const filterLocations = (type) => {
     .getElementById(`${type.toLowerCase()}-map-button`)
     .classList.add("map-button-active");
 
-  // document.getElementById("map-items").innerHTML = _locations
-  //   .map((el) => `<button>${el.name}</button>`)
-  //   .toString();
-  renderMapItems(_locations)
+  renderMapItems(_locations);
 
   adjustMapBoundsToFeatures(map, "locations");
 };
@@ -418,3 +413,7 @@ const highlightItem = (id) => {
     );
   }
 };
+
+const unhighlightItem = () => {};
+
+const displayPopup = (name, location) => {};
