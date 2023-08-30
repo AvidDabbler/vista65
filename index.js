@@ -228,14 +228,6 @@ var locations = [
   },
 ];
 
-// Create a popup, but don't add it to the map yet.
-// var popup = new mapboxgl.Popup({
-//   closeButton: false,
-// });
-
-// function normalize(string) {
-//   return string.trim().toLowerCase();
-// }
 const renderMapItems = (_locations) =>
   (document.getElementById("map-items").innerHTML = _locations
     .map(
@@ -342,6 +334,7 @@ map.on("load", function () {
 });
 
 const filterLocations = (type) => {
+  unhighlightItem()
   const _locations = locations.filter((location) => {
     return location.category === type;
   });
@@ -427,42 +420,18 @@ const highlightItem = (id, label) => {
         features: createFeatures([location], label),
       });
     }
-    // map.addLayer(
-    //   {
-    //     id: "location-highlighted",
-    //     type: "circle",
-    //     source: "locations",
-    //     paint: {
-    //       // Make circles larger as the user zooms from z12 to z22.
-    //       "circle-radius": {
-    //         base: 1.75,
-    //         stops: [
-    //           [16, 15],
-    //           [18, 25],
-    //           [22, 10],
-    //         ],
-    //       },
-    //       "circle-color": [
-    //         "match",
-    //         ["get", "category"],
-    //         "Bar",
-    //         "#fbb03b",
-    //         "Restaurant",
-    //         "#223b53",
-    //         "Hotel",
-    //         "#e55e5e",
-    //         /* other */ "#fff",
-    //       ],
-    //     },
-    //     // Display none by adding a
-    //     // filter with an empty string.
-    //     filter: ["in", "name", id],
-    //   }
-    //   // Place polygons under labels, roads and buildings.
-    // );
   }
 };
 
-const unhighlightItem = () => {};
+const unhighlightItem = () => {
+  map.getSource("location-highlighted").setData({
+    type: "FeatureCollection",
+    features: [],
+  });
+  map.getSource("location-highlighted-number").setData({
+    type: "FeatureCollection",
+    features: [],
+  });
+};
 
 const displayPopup = (name, location) => {};
