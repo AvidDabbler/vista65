@@ -244,7 +244,7 @@ const renderMapItems = (_locations) =>
           id + 1
         }</div> <button class='clean-button map-item-button' onclick="highlightItem('${
           el.name
-        }')">${el.name}</button></div>`
+        }', ${id + 1})">${el.name}</button></div>`
     )
     .join(" ")
     .toString());
@@ -277,14 +277,14 @@ map.on("load", function () {
     });
 
     renderMapItems(_locations);
-    
+
     map.addLayer({
       id: "locations",
       source: "locations",
       type: "symbol",
       layout: {
         "icon-image": "pin", // reference the image
-        "icon-size": 1,
+        "icon-size": 0.3,
       },
     });
     map.addLayer({
@@ -292,7 +292,7 @@ map.on("load", function () {
       type: "symbol",
       source: "locations-number",
       layout: {
-        'text-offset': [0, -0.25],
+        "text-offset": [0, -0.25],
         "text-field": ["get", "label"],
         "text-font": ["Arial Unicode MS Bold"],
         "text-size": 12,
@@ -301,7 +301,43 @@ map.on("load", function () {
         "text-color": "#ffffff",
       },
     });
-
+    map.addSource("location-highlighted", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: [],
+      },
+    });
+    map.addSource("location-highlighted-number", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: [],
+      },
+    });
+    map.addLayer({
+      id: "location-highlighted",
+      source: "location-highlighted",
+      type: "symbol",
+      layout: {
+        "icon-image": "pin", // reference the image
+        "icon-size": 0.4,
+      },
+    });
+    map.addLayer({
+      id: "location-highlighted-number",
+      type: "symbol",
+      source: "location-highlighted-number",
+      layout: {
+        "text-offset": [0, -0.25],
+        "text-field": ["get", "label"],
+        "text-font": ["Arial Unicode MS Bold"],
+        "text-size": 16,
+      },
+      paint: {
+        "text-color": "#ffffff",
+      },
+    });
   });
 });
 
@@ -356,7 +392,7 @@ function adjustMapBoundsToFeatures(map, sourceId) {
   });
 }
 
-const createFeatures = (locations) => {
+const createFeatures = (locations, label) => {
   return locations.map((location, id) => {
     return {
       type: "Feature",
@@ -365,7 +401,7 @@ const createFeatures = (locations) => {
         coordinates: [location.lon, location.lat],
       },
       properties: {
-        label: `${id + 1}`,
+        label: label ? label.toString() : `${id + 1}`,
         name: location.name,
         category: location.category,
       },
@@ -373,44 +409,57 @@ const createFeatures = (locations) => {
   });
 };
 
-const highlightItem = (id) => {
-  const source = map.getSource("locations");
-  console.log({ source });
-  if (!source) return;
+const highlightItem = (id, label) => {
+  const highlighted = map.getSource("location-highlighted");
+  const text = map.getSource("location-highlighted-number");
+
+  if (!highlighted || !text) return;
   else {
-    map.addLayer(
-      {
-        id: "location-highlighted",
-        type: "circle",
-        source: "locations",
-        paint: {
-          // Make circles larger as the user zooms from z12 to z22.
-          "circle-radius": {
-            base: 1.75,
-            stops: [
-              [16, 15],
-              [18, 25],
-              [22, 10],
-            ],
-          },
-          "circle-color": [
-            "match",
-            ["get", "category"],
-            "Bar",
-            "#fbb03b",
-            "Restaurant",
-            "#223b53",
-            "Hotel",
-            "#e55e5e",
-            /* other */ "#fff",
-          ],
-        },
-        // Display none by adding a
-        // filter with an empty string.
-        filter: ["in", "name", id],
-      }
-      // Place polygons under labels, roads and buildings.
-    );
+    const location = locations.find((loc) => loc.name === id);
+    if (!location) return;
+    else {
+      map.getSource("location-highlighted").setData({
+        type: "FeatureCollection",
+        features: createFeatures([location], label),
+      });
+      map.getSource("location-highlighted-number").setData({
+        type: "FeatureCollection",
+        features: createFeatures([location], label),
+      });
+    }
+    // map.addLayer(
+    //   {
+    //     id: "location-highlighted",
+    //     type: "circle",
+    //     source: "locations",
+    //     paint: {
+    //       // Make circles larger as the user zooms from z12 to z22.
+    //       "circle-radius": {
+    //         base: 1.75,
+    //         stops: [
+    //           [16, 15],
+    //           [18, 25],
+    //           [22, 10],
+    //         ],
+    //       },
+    //       "circle-color": [
+    //         "match",
+    //         ["get", "category"],
+    //         "Bar",
+    //         "#fbb03b",
+    //         "Restaurant",
+    //         "#223b53",
+    //         "Hotel",
+    //         "#e55e5e",
+    //         /* other */ "#fff",
+    //       ],
+    //     },
+    //     // Display none by adding a
+    //     // filter with an empty string.
+    //     filter: ["in", "name", id],
+    //   }
+    //   // Place polygons under labels, roads and buildings.
+    // );
   }
 };
 
