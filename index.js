@@ -434,4 +434,6 @@ const unhighlightItem = () => {
   });
 };
 
-const displayPopup = (name, location) => {};
+const displayPopup = (name, location) => {
+  
+};
