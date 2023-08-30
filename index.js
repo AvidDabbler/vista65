@@ -15,216 +15,252 @@ var locations = [
     lat: 38.627003,
     lon: -90.199404,
     name: "The Shrimp Shack",
+    address: "The Shrimp Shack",
   },
   {
     category: "Hotel",
     lat: 38.626402,
     lon: -90.196482,
     name: "Grand View Hotel",
+    address: "Grand View Hotel",
   },
   {
     category: "Bar",
     lat: 38.631874,
     lon: -90.202857,
     name: "Cheers & Beers",
+    address: "Cheers & Beers",
   },
   {
     category: "Restaurant",
     lat: 38.631022,
     lon: -90.196108,
     name: "Savory Bites",
+    address: "Savory Bites",
   },
   {
     category: "Hotel",
     lat: 38.623701,
     lon: -90.19767,
     name: "Riverside Lodge",
+    address: "Riverside Lodge",
   },
   {
     category: "Bar",
     lat: 38.630185,
     lon: -90.195419,
     name: "City Lights Lounge",
+    address: "City Lights Lounge",
   },
   {
     category: "Restaurant",
     lat: 38.626805,
     lon: -90.206221,
     name: "Pasta Palace",
+    address: "Pasta Palace",
   },
   {
     category: "Hotel",
     lat: 38.633482,
     lon: -90.203927,
     name: "Urban Haven Hotel",
+    address: "Urban Haven Hotel",
   },
   {
     category: "Bar",
     lat: 38.631557,
     lon: -90.198768,
     name: "Rooftop Vista Bar",
+    address: "Rooftop Vista Bar",
   },
   {
     category: "Restaurant",
     lat: 38.628999,
     lon: -90.190925,
     name: "Flavors of St. Louis",
+    address: "Flavors of St. Louis",
   },
   {
     category: "Hotel",
     lat: 38.627218,
     lon: -90.204937,
     name: "Central Plaza Inn",
+    address: "Central Plaza Inn",
   },
   {
     category: "Bar",
     lat: 38.629893,
     lon: -90.192743,
     name: "Brewery Junction",
+    address: "Brewery Junction",
   },
   {
     category: "Restaurant",
     lat: 38.634567,
     lon: -90.198246,
     name: "Taste of the Gateway",
+    address: "Taste of the Gateway",
   },
   {
     category: "Hotel",
     lat: 38.625091,
     lon: -90.192165,
     name: "Tranquil Stay Suites",
+    address: "Tranquil Stay Suites",
   },
   {
     category: "Bar",
     lat: 38.62915,
     lon: -90.206754,
     name: "Harborfront Pub",
+    address: "Harborfront Pub",
   },
   {
     category: "Restaurant",
     lat: 38.630789,
     lon: -90.201601,
     name: "Culinary Canvas",
+    address: "Culinary Canvas",
   },
   {
     category: "Hotel",
     lat: 38.624357,
     lon: -90.199631,
     name: "Majestic Grand Hotel",
+    address: "Majestic Grand Hotel",
   },
   {
     category: "Bar",
     lat: 38.628442,
     lon: -90.194567,
     name: "Sunset Lounge",
+    address: "Sunset Lounge",
   },
   {
     category: "Restaurant",
     lat: 38.633109,
     lon: -90.194932,
     name: "Riverside Dining",
+    address: "Riverside Dining",
   },
   {
     category: "Hotel",
     lat: 38.626699,
     lon: -90.190241,
     name: "Golden Gate Suites",
+    address: "Golden Gate Suites",
   },
   {
     category: "Bar",
     lat: 38.632512,
     lon: -90.205301,
     name: "Skyline Bar & Grill",
+    address: "Skyline Bar & Grill",
   },
   {
     category: "Restaurant",
     lat: 38.629831,
     lon: -90.191494,
     name: "Local Harvest",
+    address: "Local Harvest",
   },
   {
     category: "Hotel",
     lat: 38.627919,
     lon: -90.207879,
     name: "Elegant Heights Inn",
+    address: "Elegant Heights Inn",
   },
   {
     category: "Bar",
     lat: 38.634921,
     lon: -90.201051,
     name: "Whiskey and Rye",
+    address: "Whiskey and Rye",
   },
   {
     category: "Restaurant",
     lat: 38.630251,
     lon: -90.205753,
     name: "Cafe Metropolitan",
+    address: "Cafe Metropolitan",
   },
   {
     category: "Hotel",
     lat: 38.632841,
     lon: -90.194077,
     name: "Regal Residency",
+    address: "Regal Residency",
   },
   {
     category: "Bar",
     lat: 38.625798,
     lon: -90.195978,
     name: "Jazz & Jive Lounge",
+    address: "Jazz & Jive Lounge",
   },
   {
     category: "Restaurant",
     lat: 38.626521,
     lon: -90.20703,
     name: "The Artful Plate",
+    address: "The Artful Plate",
   },
   {
     category: "Hotel",
     lat: 38.628704,
     lon: -90.193785,
     name: "Harmony Haven Hotel",
+    address: "Harmony Haven Hotel",
   },
   {
     category: "Bar",
     lat: 38.630956,
     lon: -90.203455,
     name: "Twisted Taproom",
+    address: "Twisted Taproom",
   },
   {
     category: "Restaurant",
     lat: 38.632127,
     lon: -90.192359,
     name: "Casa Bella",
+    address: "Casa Bella",
   },
   {
     category: "Hotel",
     lat: 38.629077,
     lon: -90.200416,
     name: "Grand Central Suites",
+    address: "Grand Central Suites",
   },
   {
     category: "Bar",
     lat: 38.627513,
     lon: -90.198072,
     name: "Mingle Lounge",
+    address: "Mingle Lounge",
   },
   {
     category: "Restaurant",
     lat: 38.624955,
     lon: -90.202601,
     name: "Rustic Roots",
+    address: "Rustic Roots",
   },
   {
     category: "Hotel",
     lat: 38.63372,
     lon: -90.199896,
     name: "Serenity Suites & Spa",
+    address: "Serenity Suites & Spa",
   },
   {
     category: "Bar",
     lat: 38.628376,
     lon: -90.204227,
     name: "Highland Hangout",
+    address: "Highland Hangout",
   },
 ];
 
@@ -334,7 +370,7 @@ map.on("load", function () {
 });
 
 const filterLocations = (type) => {
-  unhighlightItem()
+  unhighlightItem();
   const _locations = locations.filter((location) => {
     return location.category === type;
   });
@@ -419,11 +455,21 @@ const highlightItem = (id, label) => {
         type: "FeatureCollection",
         features: createFeatures([location], label),
       });
+      const popup = document.getElementById("map-popup");
+      const title = document.getElementById("map-popup-title");
+      const address = document.getElementById("map-popup-address");
+      const url = document.getElementById("map-popup-url");
+
+      popup.style.display = "block";
+      title.textContent = location.name;
+      address.textContent = location.address;
+      url.href = `https://www.google.com/maps?q=${location.lat},${location.lon}`
     }
   }
 };
 
 const unhighlightItem = () => {
+  document.getElementById('map-popup').style.display = 'none'
   map.getSource("location-highlighted").setData({
     type: "FeatureCollection",
     features: [],
@@ -432,8 +478,4 @@ const unhighlightItem = () => {
     type: "FeatureCollection",
     features: [],
   });
-};
-
-const displayPopup = (name, location) => {
-  
 };
