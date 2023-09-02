@@ -7,6 +7,7 @@ var map = new mapboxgl.Map({
   center: [-73.85582719999996, 40.72493843347755],
   zoom: 14,
 });
+map.addControl(new mapboxgl.NavigationControl());
 
 var locations = [
   {
@@ -675,9 +676,10 @@ const renderMapItems = (_locations) =>
       (el, id) =>
         `<div class="map-button-container"><div class="circle-list-item">${
           id + 1
-        }</div> <button class='clean-button map-item-button' onclick="highlightItem('${
-          el.name
-        }', ${id + 1})">${el.name}</button></div>`
+        }</div> <button class='clean-button map-item-button' onclick="highlightItem('${el.name.replace(
+          "'",
+          "\\'"
+        )}', ${id + 1})">${el.name}</button></div>`
     )
     .join(" ")
     .toString());
