@@ -629,14 +629,14 @@ var locations = [
   {
     category: "Transportation",
     name: "67 Av (R train)",
-    lat: 40.726730785432544, 
+    lat: 40.726730785432544,
     lon: -73.85247569191671,
     address: "100-37 Queens Blvd, Forest Hills, NY 11375",
   },
   {
     category: "Transportation",
     name: "Forest Hills 71 Av (E, F, R trains)",
-    lat: 40.72147244127726, 
+    lat: 40.72147244127726,
     lon: -73.84478977879456,
     address: "Forest Hills-71 Av, Queens, NY 11375",
   },
@@ -657,7 +657,7 @@ var locations = [
   {
     category: "Transportation",
     name: "Queens Blvd/67 Av Bus Stop (Q60, QM11, QM18)",
-    lat: 40.7270833243632, 
+    lat: 40.7270833243632,
     lon: -73.853138574453,
     address: "9923 67th Ave, Rego Park, NY 11374",
   },
@@ -736,6 +736,22 @@ map.on("load", function () {
         "text-color": "#ffffff",
       },
     });
+    map.on("mouseenter", "locations", () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
+
+    map.on("mouseleave", "locations", () => {
+      map.getCanvas().style.cursor = "";
+    });
+
+    map.on("click", "locations", (e) => {
+      if (!e.features[0]) return;
+      highlightItem(
+        e.features[0].properties.name,
+        e.features[0].properties.label
+      );
+    });
+
     map.addSource("location-highlighted", {
       type: "geojson",
       data: {
