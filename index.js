@@ -11,6 +11,13 @@ map.addControl(new mapboxgl.NavigationControl());
 
 var locations = [
   {
+    category: "Vista65",
+    name: "Vista 65",
+    lat: 40.728214130453196,
+    lon: -73.85801488650704,
+    address: "9808 Queens Boulevard, Rego Park NY 11374",
+  },
+  {
     category: "Restaurant",
     name: "The Dinerbar",
     lat: 40.729419,
@@ -684,6 +691,10 @@ const renderMapItems = (_locations) =>
     .join(" ")
     .toString());
 
+const _locations = locations.filter((location) => {
+  return location.category === "Bar";
+});
+
 map.on("load", function () {
   map.loadImage("pin.png", (error, image) => {
     if (error) {
@@ -691,10 +702,6 @@ map.on("load", function () {
       throw error;
     }
     map.addImage("pin", image);
-
-    const _locations = locations.filter((location) => {
-      return location.category === "Bar";
-    });
 
     map.addSource("locations", {
       type: "geojson",
@@ -752,6 +759,13 @@ map.on("load", function () {
       );
     });
 
+
+  });
+
+  map.loadImage("pin-blue.png", (error, image) => {
+    if (error) return;
+    map.addImage("pin-blue", image);
+
     map.addSource("location-highlighted", {
       type: "geojson",
       data: {
@@ -771,7 +785,7 @@ map.on("load", function () {
       source: "location-highlighted",
       type: "symbol",
       layout: {
-        "icon-image": "pin", // reference the image
+        "icon-image": "pin-blue", // reference the image
         "icon-size": 0.4,
       },
     });
@@ -787,6 +801,42 @@ map.on("load", function () {
       },
       paint: {
         "text-color": "#ffffff",
+      },
+    });
+    map.addSource("location-highlighted-number", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: [],
+      },
+    });
+  });
+
+  map.loadImage("vista65.png", (error, image) => {
+    if (error) return;
+    map.addImage("vista65", image);
+
+    const vist65 = [
+      locations.find((location) => {
+        return location.category === "Vista65";
+      }),
+    ];
+
+    map.addSource("vist65", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: createFeatures(vist65),
+      },
+    });
+
+    map.addLayer({
+      id: "vist65",
+      source: "vist65",
+      type: "symbol",
+      layout: {
+        "icon-image": "vista65", // reference the image
+        "icon-size": 0.3,
       },
     });
   });
