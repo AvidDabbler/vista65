@@ -1,9 +1,9 @@
 // const mapboxgl = require("mapbox");
 mapboxgl.accessToken =
-  "pk.eyJ1Ijoid2FsdGVyaiIsImEiOiJjbGl1OW1temkycWxsM2VsZ3JsNjZnbTVqIn0.HsVEIAXfOvKgua17WO7Hlg";
+  "pk.eyJ1IjoiZHVvc3R1ZGlvIiwiYSI6ImNsbHI0dzNlZzBpeGcza28wN3poZ2kyaDkifQ.8jcIDMyngTd6XLhNt5jOEA";
 var map = new mapboxgl.Map({
   container: "map",
-  style: "mapbox://styles/mapbox/streets-v9",
+  style: "mapbox://styles/duostudio/cllr572sa00nu01ma2yd573an",
   center: [-73.85582719999996, 40.72493843347755],
   zoom: 14,
 });
@@ -758,8 +758,6 @@ map.on("load", function () {
         e.features[0].properties.label
       );
     });
-
-
   });
 
   map.loadImage("pin-blue.png", (error, image) => {
