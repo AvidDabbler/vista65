@@ -803,7 +803,7 @@ map.on("load", function () {
     });
   });
 
-  map.loadImage("vista65.png", (error, image) => {
+  map.loadImage("Vista65.png", (error, image) => {
     if (error) return;
     map.addImage("vista65", image);
 
