@@ -719,30 +719,37 @@ map.on("load", function () {
     });
 
     renderMapItems(_locations);
+    const locationsLoaded = map.getLayer("location-highlighted") ? true : false;
 
-    map.addLayer({
-      id: "locations",
-      source: "locations",
-      type: "symbol",
-      layout: {
-        "icon-image": "pin", // reference the image
-        "icon-size": 0.3,
+    map.addLayer(
+      {
+        id: "locations",
+        source: "locations",
+        type: "symbol",
+        layout: {
+          "icon-image": "pin", // reference the image
+          "icon-size": 0.3,
+        },
       },
-    });
-    map.addLayer({
-      id: "labels",
-      type: "symbol",
-      source: "locations-number",
-      layout: {
-        "text-offset": [0, -0.25],
-        "text-field": ["get", "label"],
-        "text-font": ["Arial Unicode MS Bold"],
-        "text-size": 12,
+      locationsLoaded ? "location-highlighted" : undefined
+    );
+    map.addLayer(
+      {
+        id: "labels",
+        type: "symbol",
+        source: "locations-number",
+        layout: {
+          "text-offset": [0, -0.25],
+          "text-field": ["get", "label"],
+          "text-font": ["Arial Unicode MS Bold"],
+          "text-size": 12,
+        },
+        paint: {
+          "text-color": "#ffffff",
+        },
       },
-      paint: {
-        "text-color": "#ffffff",
-      },
-    });
+      locationsLoaded ? "location-highlighted" : undefined
+    );
     map.on("mouseenter", "locations", () => {
       map.getCanvas().style.cursor = "pointer";
     });
