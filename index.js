@@ -801,13 +801,6 @@ map.on("load", function () {
         "text-color": "#ffffff",
       },
     });
-    map.addSource("location-highlighted-number", {
-      type: "geojson",
-      data: {
-        type: "FeatureCollection",
-        features: [],
-      },
-    });
   });
 
   map.loadImage("vista65.png", (error, image) => {
